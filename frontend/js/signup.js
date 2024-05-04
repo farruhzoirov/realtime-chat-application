@@ -1,3 +1,6 @@
+const port = 5000;
+
+
 const signupForm = document.getElementById("auth-signup");
 const avatarImgElement = signupForm.querySelector('.avatar > img');
 
@@ -36,7 +39,7 @@ signupForm.addEventListener('submit', async e => {
   formData.append('password', password.value)
   formData.append('confirmPassword',confirmPassword.value)
 
-  let response = await fetch('/signup', {
+  let response = await fetch(`http://localhost:${port}/signup`, {
     method: 'POST',
     body: formData
   })

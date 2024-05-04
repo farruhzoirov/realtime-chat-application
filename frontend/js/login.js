@@ -1,6 +1,5 @@
 const socket = io()
-
-
+const port = 5000;
 const loginForm = document.getElementById("auth-login");
 const email = loginForm.querySelector('#login-email');
 const password = loginForm.querySelector('#login-password');
@@ -18,7 +17,7 @@ loginForm.addEventListener('submit', async e => {
     formData.append('email', clearText(email.value))
     formData.append('password', password.value)
 
-    let response = await fetch('http://localhost:5000/login', {
+    let response = await fetch(`http://localhost:${port}/login`, {
       method: 'POST',
       body: formData
     })

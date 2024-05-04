@@ -1,5 +1,6 @@
 'use strict';
 const socket = io();
+const port = 5000;
 
 const contactList = document.querySelector('.chat-list__ul');
 const chatForm = document.querySelector('.chat-form');
@@ -14,7 +15,7 @@ const chatNotificationSound = document.querySelector('#chat-notification');
 
 
 
-fetch(`http://localhost:5000/getUser`, {
+fetch(`http://localhost:${port}/getUser`, {
   headers: {
     "Content-Type": "application/json; charset=UTF-8"
   },
@@ -118,8 +119,6 @@ const darkLayer = document.querySelector('.dark-layer'),
     videoCallEndSound = document.querySelector('#call-end-sound');
 
 
-
-
 const userInfoWrapper = document.querySelector('.user-info-wrapper');
 const userInfoCloser = document.querySelector('.user-info-closer');
 const logOutForm = document.querySelector('.log-out-form')
@@ -178,7 +177,7 @@ function endVideoCall() {
 }
 
 logOutForm.addEventListener('submit', async (e) => {
-  let response = await fetch('http://localhost:5000/logout', {
+  let response = await fetch(`http://localhost:${port}/logout`, {
     method: 'POST'
   })
   response = await response.json();
