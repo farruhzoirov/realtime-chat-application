@@ -2,7 +2,7 @@ const path = require('path');
 const express = require("express");
 const bodyParser = require("body-parser");
 const socket = require("socket.io");
-
+const cors = require("cors");
 const mongoose = require("mongoose");
 const session = require('express-session');
 const MONGODBStore = require('connect-mongodb-session')(session);
@@ -14,6 +14,9 @@ const Users = require('./models/users');
 const Messages = require('./models/messages');
 const app = express();
 app.use(express.json());
+
+app.use(cors({ origin: 'https://farruhzoirov.uz' }));
+
 
 // Template engine
 app.set("view engine", "ejs");
@@ -82,8 +85,12 @@ app.use((req, res, next) => {
 
 
 // Io setup
-const server = app.listen(5000);
-const io = require('./socket').init(server);
+const server = app.listen(config.PORT);
+const io = require('./socket').init(server, {
+      cors: {
+        origin : '*',
+      }
+});
 io.on('connection', socket => {
   socket.on('login', async data => {
     const user = await Users.findById(data.user._id);
