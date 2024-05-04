@@ -1,0 +1,26 @@
+<%- include('../includes/container.ejs') %>
+<script src="/js/login.js" defer ></script>
+<div class="auth">
+    <div class="auth__card">
+        <div class="auth__body">
+            <form class="auth__form" id="auth-login">
+                <div id="action-display-login"></div>
+                <label class="auth__label" for="login-email">
+                    <span>Email:</span>
+                    <input class="auth__input" id="login-email" type="email" required placeholder="email@gmail.com">
+                </label>
+                <label class="auth__label" for="login-password">
+                    <span>Password:</span>
+                    <input class="auth__input" id="login-password" type="password" required minlength="5" placeholder="Password">
+                </label>
+                <button class="auth__submit">
+                    Log in
+                </button>
+                <div style="text-align: center; margin-top: 10px">
+                    <a style="color: darkblue; text-align: center" href="/signup">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../includes/footer.ejs') %>

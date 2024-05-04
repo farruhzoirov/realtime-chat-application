@@ -1,0 +1,42 @@
+<%- include('../includes/container.ejs') %>
+<script src="/js/signup.js" defer></script>
+    <div class="auth">
+        <div class="auth__card">
+            <div class="auth__body">
+                <form class="auth__form" id="auth-signup" novalidate enctype="multipart/form-data">
+                    <div id="action-display-signup"></div>
+                    <label class="auth__label">
+                        <div class="avatar">
+                            <div class="avatar-change">
+                                <img src="./img/icons/camera.svg" alt="">
+                            </div>
+                            <img src="img/users/default-avatar.jpg" alt="">
+                            <input name="image" id="avatar" type="file" accept=".png, .jpg" required>
+                        </div>
+                    </label>
+                    <label class="auth__label">
+                        <span>First name:</span>
+                        <input class="auth__input" id="first-name" type="text" name="name" required placeholder="Farruh" minlength="3">
+                    </label>
+                    <label class="auth__label">
+                        <span>Email:</span>
+                        <input class="auth__input" id="signup-email" type="email" name="email" placeholder="email@gmail.com">
+                    </label>
+                    <label class="auth__label">
+                        <span>Password:</span>
+                        <input class="auth__input" id="signup-password" type="password" name="password" required minlength="5" placeholder="Password">
+                    </label>
+                    <label class="auth__label">
+                        <span>Confirm Password:</span>
+                        <input class="auth__input" id="signup-confirm-password" type="password" name="confirmPassword" required minlength="5" placeholder="Confirm Password">
+                    </label>
+                    <button class="auth__submit">
+                        SignUp
+                    </button>
+                    <div style="text-align: center; margin-top: 10px">
+                        <a style="color: darkblue; text-align: center" href="/login">Log in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

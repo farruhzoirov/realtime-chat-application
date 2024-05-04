@@ -1,0 +1,140 @@
+<%
+function addZero(number) {
+    if (number < 10) {
+        return `0${number}`
+    }
+    return number
+}
+%>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Telegram</title>
+    <link rel="shortcut icon" href="img/icons/logo.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="/js/chat.js" defer></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="app">
+        <div class="app__header">
+            <div class="app-name">Telegram Desktop (Only For Group Chat)</div>
+            <div class="app-options">
+                <div class="app-options__item" title="Oynani pastga tushirish">
+                    <img id="roll-up" src="img/icons/roll-up.svg" alt="oynani berkitish">
+                </div>
+                <div class="app-options__item" title="Oyna o`lchamini o`zgartirish">
+                    <img id="rectangle" src="img/icons/rectangle.svg" alt="oyna hajmini kichiklashtirish">
+                </div>
+                <div class="app-options__item" title="Dasturni yopish">
+                    <img id="close" src="img/icons/close.svg" alt="oynani yopish">
+                </div>
+            </div>
+        </div>
+        <div class="app__main">
+
+            <section class="chat-section">
+                <header class="chat-section__header">
+                    <div class="chatting-contact">
+                        <h3 class="chatting-contact__name">Developers group</h3>
+                        <span class="chatting-contact__typing"></span>
+                    </div>
+                    <div class="chat-settings">
+                        <img id="video-call" src="img/icons/video.svg" title="Video qo`ngiroq qilish" alt=""
+                             height="29">
+                        <img class="avatar-img" src="<%= currentUser.avatar %>" title="Chat sozlamalari" alt="" width="50" height="50">
+                    </div>
+                </header>
+                <main class="chat-section__main">
+                    <div class="date-in-chat">
+                        Chat Group
+                    </div>
+                    <ul class="messages-list">
+                        <% messages.forEach(message => {
+                            const filteredUser = users.find(user => message.userId.toString() === user._id.toString());
+                        %>
+                        <li class="message <%= message.userId === currentUserId ? "send" : "received" %>">
+                            <strong class="name"><%= filteredUser ? filteredUser.name : "Unknown User" %></strong>
+                            <p><%= message.message %></p>
+                            <time class="message-time"><%= message.writtenHour %> : <%= addZero(message.writtenMinute) %></time>
+                        </li>
+                        <% }) %>
+                    </ul>
+                    <audio id="chat-sound">
+                        <source src="media/chatsound.mp3">
+                    </audio>
+                    <audio id="call-end-sound">
+                        <source src="media/callend.mp3">
+                    </audio>
+                    <audio id="chat-notification">
+                        <source src="media/chat-notification.mp3">
+                    </audio>
+                </main>
+                <footer class="chat-section__footer">
+                    <form class="chat-form">
+                        <div class="microphone-smile">
+                            <div title="Ovozli xabar jo`natish">
+                                <img src="img/icons/microphone.svg" alt="">
+                            </div>
+                            <div title="Emodjilar ro`yxati">
+                                <img src="img/icons/smile.svg" alt="">
+                            </div>
+                        </div>
+                        <input id="typing-field" placeholder="Type here..."></input>
+                        <button title="Xabarni jo`natish" type="submit">
+                            <img src="img/icons/send.svg" alt="">
+                        </button>
+                    </form>
+                </footer>
+            </section>
+        </div>
+        <div class="dark-layer hide">
+            <div class="video-call">
+                <img class="video-call__img" src="/img/others/group-image.png" alt="">
+                <h3>Developers group</h3>
+                <div class="video-call__option">
+                    <div class="video-call__option--item">
+                        <img src="img/icons/end-call.svg" alt="" height="29">
+                    </div>
+                    <div class="video-call__option--item-2">
+                        <img src="img/icons/end-videocall.png" alt="" height="29">
+                    </div>
+                    <div class="video-call__option--item mute">
+                        <img src="img/icons/mute-microphone.svg" alt="" height="29">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="user-info-wrapper hide">
+            <div class="user-info-inner">
+                <img class="video-call__img" src="<%= currentUser.avatar %>" alt="">
+                <h3>Your name : <%= currentUser.name%></h3>
+                <strong>Your email address : <%= currentUser.email%></strong>
+                <div class="app-options user-info-options">
+                    <div class="app-options__item" title="Dasturni yopish">
+                        <img class="user-info-closer" id="close" src="img/icons/close.svg" alt="oynani yopish">
+                    </div>
+                </div>
+                <form class="log-out-form" action="">
+                    <button class="log-out-btn">
+                        <span>
+                              <img src="/img/icons/logout-icon.svg" alt="">
+                        </span>
+                        Log out
+                    </button>
+                </form>
+            </div>
+
+        </div>
+        <div class="dark-layer-user-info hide">
+            <div class="user-info">
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('includes/footer.ejs') %>
