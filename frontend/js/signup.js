@@ -1,5 +1,5 @@
+'use strict'
 const port = 5000;
-
 
 const signupForm = document.getElementById("auth-signup");
 const avatarImgElement = signupForm.querySelector('.avatar > img');

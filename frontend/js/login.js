@@ -1,3 +1,4 @@
+'use strict'
 const socket = io()
 const port = 5000;
 const loginForm = document.getElementById("auth-login");
