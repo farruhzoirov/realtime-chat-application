@@ -127,7 +127,6 @@ const logOutForm = document.querySelector('.log-out-form')
 videoCall.addEventListener('click', () => {
   setTimeout(() => {
     darkLayer.classList.remove('hide');
-    videoCallSound.play()
   }, 1000)
 });
 
@@ -171,7 +170,6 @@ avatarImg.addEventListener('click', () => {
 function endVideoCall() {
   setTimeout(() => {
     darkLayer.classList.add('hide');
-    videoCallSound.pause();
     videoCallEndSound.play();
   }, 1000)
 }
