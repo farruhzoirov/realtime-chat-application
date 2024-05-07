@@ -108,7 +108,7 @@ exports.postLogin = async (req, res, next) => {
 exports.postLogout = async (req, res, next) => {
   await req.session.destroy((err) => {
     if(err) {
-      console.log("During session deleting: error:", err)
+      return console.log("During session deleting: error:", err)
     }
   });
   res.status(200).json({
