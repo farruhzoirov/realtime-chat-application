@@ -1,13 +1,11 @@
 const path = require('path');
 const express = require("express");
-const bodyParser = require("body-parser");
-const socket = require("socket.io");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const session = require('express-session');
 const MONGODBStore = require('connect-mongodb-session')(session);
 
-const config = require('./config')
+const config = require('./config');
 const multer = require("multer");
 
 const Users = require('./models/users');
@@ -15,7 +13,7 @@ const Messages = require('./models/messages');
 const app = express();
 app.use(express.json());
 
-app.use(cors({ origin: 'https://farruhzoirov.uz' }));
+app.use(cors({origin: 'https://farruhzoirov.uz'}));
 
 
 // Template engine
@@ -35,8 +33,6 @@ const fileStorage = multer.diskStorage({
     cb(null, file.originalname);
   }
 })
-
-
 
 
 // Importing Routes
@@ -78,19 +74,15 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
-  // res.locals.csrfToken = req.csrfToken();
   next();
 })
 
-
-
 // Io setup
-const server = app.listen(config.PORT);
-const io = require('./socket').init(server, {
-      cors: {
-        origin : '*',
-      }
+const server = app.listen(config.APP_PORT, () => {
+  console.log(`Server running on http://localhost:${config.APP_PORT}`);
 });
+const io = require('./socket').init(server);
+
 io.on('connection', socket => {
   socket.on('login', async data => {
     const user = await Users.findById(data.user._id);
@@ -101,7 +93,6 @@ io.on('connection', socket => {
       user: user
     })
   })
-  console.log('Client connected');
 });
 
 // User Routes
@@ -110,7 +101,6 @@ app.use(chatRoutes);
 
 
 // Io based part
-
 io.on('connection', socket => {
   socket.on('chat', data => {
     Messages.create(
@@ -123,7 +113,9 @@ io.on('connection', socket => {
         })
         .then(() => {
           io.sockets.emit('chat', data);
-        }).catch(err => console.error(err));
+        }).catch(err =>
+        console.error('During messages creating: Error: ', err)
+    );
   });
   socket.on('typing', data => {
     socket.broadcast.emit('typing', [data]);

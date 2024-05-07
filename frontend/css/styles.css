@@ -281,6 +281,7 @@ input:focus, textarea:focus, button:focus {
   font-weight: 300;
   line-height: 18px;
   color: #707070;
+  height: 20px;
 }
 
 .chat-section__main {

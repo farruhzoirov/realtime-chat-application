@@ -2,7 +2,6 @@
 const socket = io();
 const port = 5000;
 
-const contactList = document.querySelector('.chat-list__ul');
 const chatForm = document.querySelector('.chat-form');
 const typingInput = chatForm.querySelector('input');
 const messagesList = document.querySelector('.messages-list');
@@ -12,7 +11,6 @@ const chatSound = document.getElementById('chat-sound');
 const chatContactTyping = document.querySelector('.chatting-contact__typing');
 let user = [];
 const chatNotificationSound = document.querySelector('#chat-notification');
-
 
 
 fetch(`http://localhost:${port}/getUser`, {
@@ -35,13 +33,11 @@ fetch(`http://localhost:${port}/getUser`, {
       console.error('There was a problem with the fetch operation:', error);
     });
 
-
-
+// Manage time part of project
 
 const currentTime = new Date();
 const getCurrentHour = currentTime.getHours();
 const getCurrentMinute = currentTime.getMinutes();
-
 
 function addZero(number) {
   if (number < 10) {
@@ -52,17 +48,16 @@ function addZero(number) {
 
 chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (typingInput.value !== '') {
-    socket.emit('chat', {
-      message: typingInput.value,
-      name: user[0].name,
-      getCurrentHour,
-      getCurrentMinute,
-      userId: user[0]._id
-    });
-  } else {
+  if (!typingInput.value) {
     return;
   }
+  socket.emit('chat', {
+    message: typingInput.value,
+    name: user[0].name,
+    getCurrentHour,
+    getCurrentMinute,
+    userId: user[0]._id
+  });
   typingInput.value = '';
   setTimeout(() => {
     chatSound.play();
@@ -74,7 +69,6 @@ chatForm.addEventListener('submit', (e) => {
 typingInput.addEventListener('keypress', () => {
   socket.emit('typing', [`${user[0].name}`]);
 })
-
 
 socket.on('chat', data => {
   if (data.userId !== userId) {
@@ -96,6 +90,7 @@ let timer = setTimeout(makeNoTypingState, 1000);
 socket.on('typing', data => {
   clearTimeout(timer);
   timer = setTimeout(makeNoTypingState, 1000);
+
   if (data.length > 1 && data.length < 3) {
     return chatContactTyping.innerHTML = `${data[0]}, ${data[1]} are typing a message...`;
   }
@@ -113,11 +108,9 @@ function makeNoTypingState() {
 
 const darkLayer = document.querySelector('.dark-layer'),
     videoCall = document.querySelector('#video-call'),
-    videoCallSound = document.querySelector('#gudok'),
     videoCallEndBtn = document.querySelector('.video-call__option--item:first-child'),
     avatarImg = document.querySelector('.avatar-img'),
     videoCallEndSound = document.querySelector('#call-end-sound');
-
 
 const userInfoWrapper = document.querySelector('.user-info-wrapper');
 const userInfoCloser = document.querySelector('.user-info-closer');
@@ -181,7 +174,7 @@ logOutForm.addEventListener('submit', async (e) => {
   response = await response.json();
 
   if (!response.ok) {
-   alert('Please try again')
+   alert('Please try again');
   }
   if(response.ok) {
     window.location.reload();

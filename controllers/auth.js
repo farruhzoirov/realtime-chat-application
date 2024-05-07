@@ -1,6 +1,6 @@
 const Users = require('../models/users');
 const bcrypt = require('bcryptjs');
-const {body, validationResult} = require('express-validator');
+const {validationResult} = require('express-validator');
 
 exports.getSignup = async (req, res, next) => {
   res.render('auth/signup', {
@@ -22,6 +22,12 @@ exports.postSignup = async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    if (!image || !name || !email || !password) {
+      return res.status(406).json({
+        ok: false,
+        message: 'Invalid data'
+      })
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -55,53 +61,56 @@ exports.postSignup = async (req, res, next) => {
   }
 }
 
-
 exports.postLogin = async (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const errors = validationResult(req);
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    return res.status(422).json({
-      errorMessage: errors.array()[0].msg,
-      oldInput: {
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        confirmPassword: req.body.confirmPassword
-      }
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errorMessage: errors.array()[0].msg,
+        oldInput: {
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password,
+          confirmPassword: req.body.confirmPassword
+        }
+      })
+    }
+    const user = await Users.findOne({email: email});
+    if (!user) {
+      return res.status(422).json({
+        ok: false,
+        message: "You didn't register"
+      });
+    }
+    const isCorrectPassword = await bcrypt.compare(password, user.password);
+    if (!isCorrectPassword) {
+      return res.status(422).json({
+        ok: false,
+        message: "Password is incorrect"
+      });
+    }
+    req.session.isLoggedIn = true;
+    req.session.user = user;
+    req.session.save();
+    return res.status(200).json({
+      ok: 'true',
+      message: 'Logged successfully.',
+      user: user
     })
+  } catch (e) {
+    console.log('Post Login: Error: ' + e);
   }
-
-  const user = await Users.findOne({email: email});
-  if (!user) {
-    return res.status(422).json({
-      ok: false,
-      message: "You didn't register"
-    });
-  }
-  const isCorrectPassword = await bcrypt.compare(password, user.password);
-  if (!isCorrectPassword) {
-    return res.status(422).json({
-      ok: false,
-      message: "Password is incorrect"
-    });
-  }
-  req.session.isLoggedIn = true;
-  req.session.user = user;
-  req.session.save();
-  return res.status(200).json({
-    ok: 'true',
-    message: 'Logged successfully.',
-    user: user
-  })
 }
 
 exports.postLogout = async (req, res, next) => {
   await req.session.destroy((err) => {
-    console.log(err)
+    if(err) {
+      console.log("During session deleting: error:", err)
+    }
   });
-
   res.status(200).json({
     ok: true,
     message: 'Session deleted'
