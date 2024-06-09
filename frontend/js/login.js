@@ -18,7 +18,7 @@ loginForm.addEventListener('submit', async e => {
     formData.append('email', clearText(email.value))
     formData.append('password', password.value)
 
-    let response = await fetch(`http://localhost:${port}/login`, {
+    let response = await fetch(`/login`, {
       method: 'POST',
       body: formData
     })

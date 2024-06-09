@@ -13,7 +13,7 @@ let user = [];
 const chatNotificationSound = document.querySelector('#chat-notification');
 
 
-fetch(`http://localhost:${port}/getUser`, {
+fetch(`/getUser`, {
   headers: {
     "Content-Type": "application/json; charset=UTF-8"
   },
@@ -168,7 +168,7 @@ function endVideoCall() {
 }
 
 logOutForm.addEventListener('submit', async (e) => {
-  let response = await fetch(`http://localhost:${port}/logout`, {
+  let response = await fetch(`/logout`, {
     method: 'POST'
   })
   response = await response.json();

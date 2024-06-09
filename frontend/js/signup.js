@@ -39,7 +39,7 @@ signupForm.addEventListener('submit', async e => {
   formData.append('password', password.value)
   formData.append('confirmPassword',confirmPassword.value)
 
-  let response = await fetch(`http://localhost:${port}/signup`, {
+  let response = await fetch(`/signup`, {
     method: 'POST',
     body: formData
   })
