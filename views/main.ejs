@@ -112,24 +112,21 @@ function addZero(number) {
         </div>
         <div class="user-info-wrapper hide">
             <div class="user-info-inner">
-                <img class="video-call__img" src="<%= currentUser.avatar %>" alt="">
-                <h3>Your name : <%= currentUser.name%></h3>
-                <strong>Your email address : <%= currentUser.email%></strong>
-                <div class="app-options user-info-options">
-                    <div class="app-options__item" title="Dasturni yopish">
-                        <img class="user-info-closer" id="close" src="img/icons/close.svg" alt="oynani yopish">
+                <img class="video-call__img" src="<%= currentUser.avatar %>" alt="User avatar">
+                <h3>Your name: <%= currentUser.name %></h3>
+                <strong>Your email address: <%= currentUser.email%></strong>
+                <div class="user-modal-option">
+                    <div class="app-options__item" title="Close">
+                        <img class="user-info-closer" id="close" src="img/icons/close.svg" alt="Close modal">
                     </div>
                 </div>
                 <form class="log-out-form" action="">
                     <button class="log-out-btn">
-                        <span>
-                              <img src="/img/icons/logout-icon.svg" alt="">
-                        </span>
+                        <img src="/img/icons/logout-icon.svg" alt="Logout icon">
                         Log out
                     </button>
                 </form>
             </div>
-
         </div>
         <div class="dark-layer-user-info hide">
             <div class="user-info">

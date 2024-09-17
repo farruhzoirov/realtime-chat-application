@@ -469,10 +469,11 @@ button[type=submit] {
 .user-info-inner {
   width: 50%;
   min-height: 350px;
-  padding: 30px;
-  background-color: #ffffff;
+  padding: 40px;
+  background-color: #F2F4F7;
   text-align: center;
   position: relative;
+  border-radius: 16px;
 }
 
 
@@ -488,6 +489,10 @@ button[type=submit] {
   margin-bottom: 40px;
   font-size: 18px;
   font-weight: 600;
+}
+
+.user-info-wrapper h3 {
+  color: darkblue;
 }
 .video-call__img {
   display: inline-block;
@@ -814,6 +819,7 @@ input[type=number] {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 }
 
 .log-out-form img {
@@ -828,7 +834,7 @@ input[type=number] {
   padding: 15px 25px;
   background-color: red;
   border: none;
-  color: #000;
+  color: #ffffff;
   border-radius: 5px;
   font-size: 16px;
   margin: 0;
@@ -852,4 +858,30 @@ input[type=number] {
 
 .send p, .received p {
   color: #111827;
+}
+
+.video-call__img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 16px;
+  display: block;
+  border: 4px solid #3498db;
+}
+
+.user-modal-option {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+
+.app-options__item {
+  cursor: pointer;
+}
+
+.user-info-closer {
+  width: 24px;
+  height: 24px;
 }
