@@ -35,9 +35,7 @@ fetch(`/getUser`, {
 
 // Manage time part of project
 
-const currentTime = new Date();
-const getCurrentHour = currentTime.getHours();
-const getCurrentMinute = currentTime.getMinutes();
+
 
 function addZero(number) {
   if (number < 10) {
@@ -48,6 +46,9 @@ function addZero(number) {
 
 chatForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  const currentTime = new Date();
+  const getCurrentHour = currentTime.getHours();
+  const getCurrentMinute = currentTime.getMinutes();
   if (!typingInput.value) {
     return;
   }
@@ -182,4 +183,17 @@ logOutForm.addEventListener('submit', async (e) => {
 })
 
 
+// For main section
+const rectangleIcon = document.getElementById('rectangle');
+const appContainer = document.querySelector('.app');
 
+let isExpanded = true;
+
+rectangleIcon.addEventListener('click', () => {
+  if (!isExpanded) {
+    appContainer.style.width = "1000px";
+  } else {
+    appContainer.style.width = "100%";
+  }
+  isExpanded = !isExpanded;
+});

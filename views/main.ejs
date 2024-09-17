@@ -36,19 +36,19 @@ function addZero(number) {
             </div>
         </div>
         <div class="app__main">
+            <header class="chat-section__header">
+                <div class="chatting-contact">
+                    <h3 class="chatting-contact__name">Developers group</h3>
+                    <span class="chatting-contact__typing"></span>
+                </div>
+                <div class="chat-settings">
+                    <img id="video-call" src="img/icons/video.svg" title="Video qo`ngiroq qilish" alt=""
+                         height="29">
+                    <img class="avatar-img" src="<%= currentUser.avatar %>" title="Chat sozlamalari" alt="" width="50" height="50">
+                </div>
+            </header>
 
             <section class="chat-section">
-                <header class="chat-section__header">
-                    <div class="chatting-contact">
-                        <h3 class="chatting-contact__name">Developers group</h3>
-                        <span class="chatting-contact__typing"></span>
-                    </div>
-                    <div class="chat-settings">
-                        <img id="video-call" src="img/icons/video.svg" title="Video qo`ngiroq qilish" alt=""
-                             height="29">
-                        <img class="avatar-img" src="<%= currentUser.avatar %>" title="Chat sozlamalari" alt="" width="50" height="50">
-                    </div>
-                </header>
                 <main class="chat-section__main">
                     <div class="date-in-chat">
                         Chat Group
@@ -74,23 +74,24 @@ function addZero(number) {
                         <source src="media/chat-notification.mp3">
                     </audio>
                 </main>
-                <footer class="chat-section__footer">
-                    <form class="chat-form">
-                        <div class="microphone-smile">
-                            <div title="Ovozli xabar jo`natish">
-                                <img src="img/icons/microphone.svg" alt="">
-                            </div>
-                            <div title="Emodjilar ro`yxati">
-                                <img src="img/icons/smile.svg" alt="">
-                            </div>
-                        </div>
-                        <input id="typing-field" placeholder="Type here..."></input>
-                        <button title="Xabarni jo`natish" type="submit">
-                            <img src="img/icons/send.svg" alt="">
-                        </button>
-                    </form>
-                </footer>
             </section>
+
+            <footer class="chat-section__footer">
+                <form class="chat-form">
+                    <div class="microphone-smile">
+                        <div title="Ovozli xabar jo`natish">
+                            <img src="img/icons/microphone.svg" alt="">
+                        </div>
+                        <div title="Emodjilar ro`yxati">
+                            <img src="img/icons/smile.svg" alt="">
+                        </div>
+                    </div>
+                    <input id="typing-field" placeholder="Type here..."></input>
+                    <button title="Xabarni jo`natish" type="submit">
+                        <img src="img/icons/send.svg" alt="">
+                    </button>
+                </form>
+            </footer>
         </div>
         <div class="dark-layer hide">
             <div class="video-call">
