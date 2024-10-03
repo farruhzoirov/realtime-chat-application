@@ -78,7 +78,7 @@ app.use((req, res, next) => {
 })
 
 // Io setup
-const server = app.listen(config.PORT, '0.0.0.0' () => {
+const server = app.listen(config.PORT, '0.0.0.0', () => {
   console.log(`Server running on http://localhost:${config.PORT}`);
 });
 const io = require('./socket').init(server);
